@@ -1,0 +1,80 @@
+# .gitignore (Next.js + React)
+
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js build output
+.next/
+out/
+
+# production build (if you use it)
+build/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# local env files
+.env
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel/
+
+# turborepo
+.turbo/
+
+# cache
+.cache/
+.eslintcache
+.stylelintcache
+
+# coverage
+coverage/
+*.lcov
+
+# typescript
+*.tsbuildinfo
+
+# misc
+.DS_Store
+Thumbs.db
+
+# IDEs/editors
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+.idea/
+*.swp
+*.swo
+
+# lockfiles (opcional: deixe só o que você usa)
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
+
+# next/image cache (às vezes aparece em public ou root dependendo do setup)
+**/.next/cache/
+
+# playwright / cypress (se usar)
+playwright-report/
+test-results/
+cypress/videos/
+cypress/screenshots/
+
+# prisma (se gerar artefatos locais)
+prisma/dev.db
+prisma/dev.db-journal
