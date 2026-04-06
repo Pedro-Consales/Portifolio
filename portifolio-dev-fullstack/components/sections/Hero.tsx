@@ -2,7 +2,7 @@
 
 
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import FaultyTerminal from "../react-bits/FaultyTerminal/FaultyTerminal";
@@ -15,10 +15,10 @@ export default function Hero() {
 
   useEffect(() => setMounted(true), []);
 
-  const tint_theme = !mounted || resolvedTheme === "dark" ? "#854ab5" : "#c2c0c0";
+  const tint_theme = !mounted || resolvedTheme === "dark" ? "#2a6984" : "#c2c0c0";
 
   return (
-    <section className="w-full min-h-screen m-0">
+    <section id="hero" className="w-full min-h-screen m-0">
       
       <div className="relative h-screen w-full">
         <FaultyTerminal
@@ -50,7 +50,7 @@ export default function Hero() {
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none gap-2">
           
           <div className="flex flex-col gap-10">
-            <div className={`text-white text-center text-5xl font-bold${resolvedTheme === "dark" ? "text-white" : "text-black" }`}>
+            <div className="text-white text-center text-5xl font-bold">
               <p>Hello! My name is</p>
               <p>Pedro Consales Margaronis</p>
             </div>
@@ -108,7 +108,15 @@ export default function Hero() {
       </div>
 
       {/* gradient */}
-      <div className={`pointer-events-none absolute bottom-0 left-0 right-0 ${resolvedTheme === "dark" ? "h-40": "h-8"} bg-gradient-to-b from-transparent to-white dark:to-black`} /> 
+      <div className={`
+        pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-b 
+        
+        from-black/0
+        via-black/5 via-40%
+        via-black/100 via-100%
+        to-white 
+        
+        dark:to-black dark:h-40`} /> 
 
     </section>
   );
