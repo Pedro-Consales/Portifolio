@@ -22,7 +22,7 @@ export function useActiveSection(sectionIds: string[]) {
         ([entry]) => {
           if (entry.isIntersecting) setActiveSection(id);
         },
-        { threshold: 0.6 } // 40% da seção visível = ativa
+        { threshold: 0.4} // 40% da seção visível = ativa
       );
 
       observer.observe(el);
