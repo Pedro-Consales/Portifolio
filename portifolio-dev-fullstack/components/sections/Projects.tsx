@@ -255,7 +255,7 @@ export default function Projects() {
                     <h4>Projects</h4>
                 </div>
 
-                <div className="w-full max-w-6xl px-6 mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 items-stretch auto-rows-fr">
+                <div className="w-full max-w-6xl px-6 mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 items-stretch auto-rows-fr">
                     
                     {projectlist.map((project) => (
                         <ProjectCard key={project.title} project={project} />
