@@ -90,7 +90,7 @@ function SkillCard({ icon, title, description, skills }: SkillCardProps) {
 
 // ----------------------------------------------------------------
 // SkillOverview
-// ----------------------------------------------------------------
+// -----------------------------------------------------------------
 
 export default function SkillOverview() {
   return (
