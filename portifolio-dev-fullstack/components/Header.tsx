@@ -21,10 +21,11 @@ export default function Header({
     { label: "Hero",     href: "/#",         sectionId: "hero" },
     { label: "About Me", href: "/#about-me", sectionId: "about-me" },
     { label: "Time Line", href: "/#timeline", sectionId: "timeline" },
-    { label: "Docs",     href: "/docs" },
+    { label: "Skills", href: "/#skill-overview", sectionId: "skill-overview" },
+    { label: "Projects", href: "/#projects", sectionId: "projects" },
   ],
 }: HeaderProps) {
-  const activeSection = useActiveSection(["hero", "about-me", "timeline"]);
+  const activeSection = useActiveSection(["hero", "about-me", "timeline", "skill-overview", "projects"]);
 
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
@@ -76,9 +77,22 @@ export default function Header({
           
         </div>
 
-        <div>
+        <div className="flex flex-row jutify-center items-center gap-2">
           <ThemeToggle /> 
-          Resume
+
+          <Link
+            href="/_Brasil Curriclo Vittae - Pedro Consales_2026.1.pdf" 
+            target="_blank" 
+            rel="noreferrer"
+            className={[
+              "inline-flex items-center rounded-full px-6 py-2.5 font-semibold transition", 
+              "bg-[#7EC2D6] text-white hover:bg-[#6db6cc] shadow-sm", 
+              "dark:bg-[#267799] dark:hover:bg-[#1f6683]",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#7EC2D6] dark:focus-visible:ring-[#267799] focus-visible:ring-offset-transparent", // CHANGED: accessibility
+            ].join(" ")}
+          >
+            Resume
+          </Link>
         </div>
       </nav>
     </header>

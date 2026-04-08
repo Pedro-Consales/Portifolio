@@ -44,10 +44,10 @@ export default function Timeline() {
     : { background: "#ffffff", color: "#111827", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" };
 
   const arrowStyle = (isWork: boolean) => ({
-    borderRight: `7px solid ${isWork ? "#854ab5" : "#6b7280"}`,
+    borderRight: `7px solid ${isWork ? "#267799" : "#6b7280"}`,
   });
 
-  const workIconStyle  = { background: "#854ab5", color: "#fff" };
+  const workIconStyle  = { background: "#267799", color: "#fff" };
   const eduIconStyle   = { background: "#6b7280", color: "#fff" };
 
   return (

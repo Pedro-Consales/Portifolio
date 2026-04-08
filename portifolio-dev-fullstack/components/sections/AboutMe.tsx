@@ -19,21 +19,21 @@ export default function AboutMe() {
                     My name is Pedro Consales Margaronis. I’m 20 years old and based in Rio de Janeiro, Brazil.
                     <br />
                     <br />
-                    I have <strong>1+ years of experience</strong> as a <strong>Full‑Stack Developer</strong>, building web applications from UI to backend APIs.
+                    I have <strong className="text-[#267799]">1+ years of experience</strong> as a <strong className="text-[#267799]">Full‑Stack Developer</strong>, building web applications from UI to backend APIs.
                     <br />
                     <br />
-                    I’m currently pursuing a <strong>Computer Science degree</strong> at <strong>PUC‑Rio</strong>, focusing on <br/>building well‑structured products that balance{" "}
-                    <strong>performance</strong>, <strong>usability</strong>, <strong>security</strong>, and <strong>reliability</strong>.
+                    I’m currently pursuing a <strong className="text-[#267799]">Computer Science degree</strong> at <strong className="text-[#267799]">PUC‑Rio</strong>, focusing on <br/>building well‑structured products that balance{" "}
+                    <strong className="text-[#267799]">performance</strong>, <strong className="text-[#267799]">usability</strong>, <strong className="text-[#267799]">security</strong>, and <strong className="text-[#267799]">reliability</strong>.
                     <br />
                     <br />
-                    My main stack includes <strong>Django</strong>, <strong>React</strong>, and <strong>Next.js</strong>, plus backend tools like <strong>FastAPI</strong> and ORMs.
+                    My main stack includes <strong className="text-[#267799]">Django</strong>, <strong className="text-[#267799]">React</strong>, and <strong className="text-[#267799]">Next.js</strong>, plus backend tools like <strong className="text-[#267799]">FastAPI</strong> and ORMs.
                     <br />
-                    I also have academic experience with <strong>Java</strong>, <strong>C#</strong>, and <strong>OOP</strong>, so those concepts are familiar.
+                    I also have academic experience with <strong className="text-[#267799]">Java</strong>, <strong className="text-[#267799]">C#</strong>, and <strong className="text-[#267799]">OOP</strong>, so those concepts are familiar.
                     <br />
-                    I enjoy working with <strong>C</strong> and other <strong>low‑level languages</strong>, even though I haven’t used them professionally yet.
+                    I enjoy working with <strong className="text-[#267799]">C</strong> and other <strong className="text-[#267799]">low‑level languages</strong>, even though I haven’t used them professionally yet.
                     <br />
                     <br />
-                    I have hands‑on experience integrating <strong>AI features</strong> into applications (e.g., <strong>semantic search</strong> and <strong>embeddings</strong>) to help users find information faster and get clearer, more relevant results.
+                    I have hands‑on experience integrating <strong className="text-[#267799]">AI features</strong> into applications (e.g., <strong className="text-[#267799]">semantic search</strong> and <strong className="text-[#267799]">embeddings</strong>) to help users find information faster and get clearer, more relevant results.
                     <br />
                     <br />
                     Fun fact: when I’m not shipping features, I’m probably chasing waves — surfing keeps my brain in “debug mode,” but happier.
