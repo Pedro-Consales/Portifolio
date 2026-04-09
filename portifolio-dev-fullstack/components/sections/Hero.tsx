@@ -20,7 +20,7 @@ export default function Hero() {
   return (
     <section id="hero" className="w-full min-h-screen m-0">
       
-      <div className="relative h-screen w-full">
+      <div className="relative h-screen sm:min-h-screen w-full">
         <FaultyTerminal
           className="flex items-center justify-center h-full w-full"
           style={{ width: "100%", height: "100%" }}

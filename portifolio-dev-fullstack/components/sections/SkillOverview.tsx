@@ -95,7 +95,6 @@ export default function SkillOverview() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl w-full"> {/* CHANGED: 1 col on mobile */}
-          {/* ...existing cards... */}
           <SkillCard
             icon={<FaReact size={18} />}
             title="Frontend"
