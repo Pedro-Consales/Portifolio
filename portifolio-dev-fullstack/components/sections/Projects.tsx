@@ -17,6 +17,8 @@ import {
   SiPython,
   SiBootstrap,
   SiReact,
+  SiNextdotjs,
+  SiTypescript, 
 } from "react-icons/si";
 
 import { FaCloud } from "react-icons/fa6";
@@ -157,6 +159,19 @@ export default function Projects() {
       status: "in-progress",
       security: "confidential",
     },
+    {
+        logo: "/Portifolio-prjct.jpeg",
+        title: "Portifolio",
+        github_link: "https://github.com/Pedro-Consales/Portifolio",
+        tech: [
+            { name: "Next.js", icon: <SiNextdotjs /> },    
+            { name: "React", icon: <SiReact /> },           
+            { name: "TypeScript", icon: <SiTypescript /> }, 
+        ],
+        description: "My personal portfolio website showcasing my projects, skills, and experience as a Full-Stack Developer — built with Next.js, TypeScript, and Tailwind CSS.",
+        status: "completed",
+        security: "public",
+      },
     {
       logo: "/lbs-compiler-reademe.jpeg",
       title: "LBS---Compiler",
