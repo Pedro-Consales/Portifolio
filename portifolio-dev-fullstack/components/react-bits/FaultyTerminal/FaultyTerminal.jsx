@@ -73,24 +73,17 @@ float fbm(vec2 p)
   
   mat2 modify1 = rotate(time * 0.02);
   f += amp * noise(p);
-  p = modify1 * p * 2.0;
-  amp *= 0.454545;
-  
-  mat2 modify2 = rotate(time * 0.08);
-  f += amp * noise(p);
-  
+
   return f;
 }
 
 float pattern(vec2 p, out vec2 q, out vec2 r) {
   vec2 offset1 = vec2(1.0);
-  vec2 offset0 = vec2(0.0);
   mat2 rot01 = rotate(0.1 * time);
-  mat2 rot1 = rotate(0.1);
-  
+
   q = vec2(fbm(p + offset1), fbm(rot01 * p + offset1));
-  r = vec2(fbm(rot1 * q + offset0), fbm(q + offset0));
-  return fbm(p + r);
+  r = vec2(0.0);
+  return fbm(p + q * 0.5);
 }
 
 float digit(vec2 p){
@@ -165,10 +158,10 @@ vec3 getColor(vec2 p){
 
     float middle = digit(p);
     
-    const float off = 0.002;
-    float sum = digit(p + vec2(-off, -off)) + digit(p + vec2(0.0, -off)) + digit(p + vec2(off, -off)) +
-                digit(p + vec2(-off, 0.0)) + digit(p + vec2(0.0, 0.0)) + digit(p + vec2(off, 0.0)) +
-                digit(p + vec2(-off, off)) + digit(p + vec2(0.0, off)) + digit(p + vec2(off, off));
+    const float off = 0.003;
+    float sum = digit(p + vec2(-off, 0.0)) + digit(p + vec2(off, 0.0)) +
+                digit(p + vec2(0.0, -off)) + digit(p + vec2(0.0, off)) +
+                middle * 0.5;
     
     vec3 baseColor = vec3(0.9) * middle + sum * 0.1 * vec3(1.0) * bar;
     return baseColor;
@@ -237,8 +230,7 @@ export default function FaultyTerminal({
   tint = '#ffffff',
   mouseReact = true,
   mouseStrength = 0.1,
-  //dpr = Math.min(window.devicePixelRatio || 1, 2),
-  dpr,
+  dpr = Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 1.5),
   pageLoadAnimation = true,
   brightness = 1,
   className,
