@@ -254,6 +254,7 @@ export default function FaultyTerminal({
   const rafRef = useRef(0);
   const loadAnimationStartRef = useRef(0);
   const timeOffsetRef = useRef(Math.random() * 100);
+  const isInViewRef = useRef(true);
 
   const tintVec = useMemo(() => hexToRgb(tint), [tint]);
 
@@ -368,8 +369,37 @@ export default function FaultyTerminal({
 
     if (mouseReact) ctn.addEventListener('mousemove', handleMouseMove);
 
+    // Pause RAF when component leaves the viewport
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        isInViewRef.current = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          if (!rafRef.current) rafRef.current = requestAnimationFrame(update);
+        } else {
+          cancelAnimationFrame(rafRef.current);
+          rafRef.current = 0;
+        }
+      },
+      { threshold: 0 }
+    );
+    intersectionObserver.observe(ctn);
+
+    // Pause RAF when the browser tab is hidden
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = 0;
+      } else if (isInViewRef.current) {
+        if (!rafRef.current) rafRef.current = requestAnimationFrame(update);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
       cancelAnimationFrame(rafRef.current);
+      rafRef.current = 0;
+      intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       resizeObserver.disconnect();
       if (mouseReact) ctn.removeEventListener('mousemove', handleMouseMove);
       if (gl.canvas.parentElement === ctn) ctn.removeChild(gl.canvas);

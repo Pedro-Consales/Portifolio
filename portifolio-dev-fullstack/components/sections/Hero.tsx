@@ -5,6 +5,9 @@ import { useTheme } from "next-themes";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import FaultyTerminal from "../react-bits/FaultyTerminal/FaultyTerminal";
 
+// Stable reference — prevents WebGL context from being recreated on every Hero re-render
+const GRID_MUL: [number, number] = [2, 1];
+
 export default function Hero() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -21,7 +24,7 @@ export default function Hero() {
           className="flex items-center justify-center h-full w-full"
           style={{ width: "100%", height: "100%" }}
           scale={4.0}
-          gridMul={[2, 1]}
+          gridMul={GRID_MUL}
           digitSize={0.7}
           timeScale={0.5}
           pause={false}
