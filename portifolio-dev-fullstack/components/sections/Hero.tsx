@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import FaultyTerminal from "../react-bits/FaultyTerminal/FaultyTerminal";
+import DecryptedText from "../react-bits/DecryptedText/DecryptedText";
 
 // Stable reference — prevents WebGL context from being recreated on every Hero re-render
 const GRID_MUL: [number, number] = [2, 1];
@@ -55,7 +56,16 @@ export default function Hero() {
               <p className="text-lg md:text-xl font-semibold text-white/90">
                 I&apos;m a{" "}
                 <span className="text-[#A7EF9E] font-extrabold tracking-tight">
-                  Full Stack Software Engineer
+                  <DecryptedText
+                  text="Full Stack Software Engineer"
+                  speed={60}
+                  maxIterations={10}
+                  characters="ABCD1234!?ˆ*&!@#$%()åøπˆßµ∫√"
+                  revealDirection="center"
+                  className="revealed"
+                  parentClassName="all-letters"
+                  encryptedClassName="encrypted"
+                  />
                 </span>{" "}
                 and a Computer Science student at PUC-Rio.
                 <br />

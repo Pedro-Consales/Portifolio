@@ -173,7 +173,11 @@ const MagicBento: React.FC<BentoProps> = ({
           mask-composite: exclude;
           pointer-events: none;
           z-index: 1;
-          transition: opacity 0.2s ease;
+          transition: filter 0.2s ease;
+        }
+
+        .bento-card--glow:hover::after {
+          filter: brightness(1.5);
         }
       `}</style>
 
