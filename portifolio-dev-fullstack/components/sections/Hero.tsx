@@ -58,9 +58,11 @@ export default function Hero() {
                 <span className="text-[#A7EF9E] font-extrabold tracking-tight">
                   <DecryptedText
                   text="Full Stack Software Engineer"
-                  speed={60}
-                  maxIterations={10}
+                  speed={70}
+                  maxIterations={11}
                   characters="ABCD1234!?ˆ*&!@#$%()åøπˆßµ∫√"
+                  animateOn="view"
+                  sequential
                   revealDirection="center"
                   className="revealed"
                   parentClassName="all-letters"
