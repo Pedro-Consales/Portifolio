@@ -40,13 +40,15 @@ export default function AboutMe() {
 
         <div className="w-full lg:w-auto flex justify-center lg:justify-end shrink-0">
           <ProfileCard
-            avatarUrl="/profile-picture.png"
+            avatarUrl="/profile-card-pic.jpg"
             name="Pedro Consales"
             title="Full Stack Engineer"
             handle="pedro-consales"
             status="Available"
             contactText="Contact"
             behindGlowColor="rgba(38, 119, 153, 0.55)"
+            avatarScale={0.9}
+            avatarOffsetY={40}
             onContactClick={() => {
               document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
             }}

@@ -37,6 +37,10 @@ interface ProfileCardProps {
   contactText?: string;
   showUserInfo?: boolean;
   onContactClick?: () => void;
+  /** Scale the avatar image. Values < 1 zoom out (show more). Default: 1 */
+  avatarScale?: number;
+  /** Shift the avatar vertically in px. Positive = move up, negative = move down. Default: 0 */
+  avatarOffsetY?: number;
 }
 
 interface TiltEngine {
@@ -65,7 +69,9 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   status = 'Available',
   contactText = 'Contact',
   showUserInfo = true,
-  onContactClick
+  onContactClick,
+  avatarScale = 1,
+  avatarOffsetY = 0,
 }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
@@ -319,11 +325,13 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               style={{ mixBlendMode: 'luminosity', transform: 'translateZ(2px)', gridArea: '1 / -1', borderRadius: cardRadius, pointerEvents: 'none', backfaceVisibility: 'hidden' }}
             >
               <img
-                className="w-full absolute left-1/2 bottom-[-1px] will-change-transform transition-transform duration-[120ms] ease-out"
+                className="absolute left-1/2 will-change-transform transition-transform duration-[120ms] ease-out"
                 src={avatarUrl}
                 alt={`${name} avatar`}
                 loading="lazy"
                 style={{
+                  width: `${avatarScale * 100}%`,
+                  bottom: `${-1 + avatarOffsetY}px`,
                   transformOrigin: '50% 100%',
                   transform: 'translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01))',
                   borderRadius: cardRadius, backfaceVisibility: 'hidden'
