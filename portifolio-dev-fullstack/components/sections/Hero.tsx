@@ -53,7 +53,7 @@ export default function Hero() {
             </div>
             <div className="text-white text-center font-bold">
               <p className="text-lg md:text-xl font-semibold text-white/90">
-                I'm a{" "}
+                I&apos;m a{" "}
                 <span className="text-[#A7EF9E] font-extrabold tracking-tight">
                   Full Stack Software Engineer
                 </span>{" "}
