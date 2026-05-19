@@ -47,8 +47,8 @@ export default function AboutMe() {
             status="Available"
             contactText="Contact"
             behindGlowColor="rgba(38, 119, 153, 0.55)"
-            avatarScale={0.9}
-            avatarOffsetY={40}
+            avatarScale={1}
+            avatarOffsetY={0}
             onContactClick={() => {
               document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
             }}
