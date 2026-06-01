@@ -24,7 +24,7 @@ export default function AboutMe() {
               <strong className="text-[#267799]">performance</strong>, <strong className="text-[#267799]">usability</strong>, <strong className="text-[#267799]">security</strong>, and <strong className="text-[#267799]">reliability</strong>.
               <br />
               <br />
-              My main stack includes <strong className="text-[#267799]">Django</strong>, <strong className="text-[#267799]">React</strong>, and <strong className="text-[#267799]">Next.js</strong>, plus backend tools like <strong className="text-[#267799]">FastAPI</strong> and <strong className="text-[#267799]">ORMs</strong>.
+              My main stack includes <strong className="text-[#267799]">Django/DRF</strong>, <strong className="text-[#267799]">React</strong>, and <strong className="text-[#267799]">Next.js</strong>, plus backend tools like <strong className="text-[#267799]">REST API</strong> and <strong className="text-[#267799]">ORMs</strong>.
               <br />
               I also have academic experience with <strong className="text-[#267799]">Java</strong>, <strong className="text-[#267799]">C#</strong>, and <strong className="text-[#267799]">OOP</strong>, so those concepts are familiar.
               <br />

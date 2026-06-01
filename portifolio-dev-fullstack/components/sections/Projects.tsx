@@ -168,7 +168,7 @@ export default function Projects() {
       github_link: "https://github.com/dropaiorg",
       techGroups: [
         {
-          label: "Portfólio →",
+          label: "Portfólio:",
           tech: [
             { name: "React", icon: <SiReact /> },
             { name: "Next.js", icon: <SiNextdotjs /> },
@@ -177,7 +177,7 @@ export default function Projects() {
           ],
         },
         {
-          label: "App →",
+          label: "App:",
           tech: [
             { name: "Django", icon: <SiDjango /> },
             { name: "Python", icon: <SiPython /> },
