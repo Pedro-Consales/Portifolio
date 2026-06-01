@@ -69,11 +69,13 @@ export default function Hero() {
                   encryptedClassName="encrypted"
                   />
                 </span>{" "}
-                and a Computer Science student at PUC-Rio.
+                enthusiast, 
+                <br />
+                CEO, Startup Founder, and a Computer Science student at PUC-Rio.
                 <br />
                 I build web projects from ideation to deployment, solving real-world problems.
                 <br />
-                I primarily work with modern frameworks such as Django and React.
+                I primarily work with modern full stack frameworks.
               </p>
 
               <p className="mt-3 text-base md:text-lg font-semibold text-white/80">

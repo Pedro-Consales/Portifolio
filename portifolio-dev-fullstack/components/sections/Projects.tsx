@@ -5,7 +5,10 @@ import {
   FaGithub,
   FaTerminal,
   FaCamera,
-  FaArrowUpRightFromSquare
+  FaArrowUpRightFromSquare,
+  FaDatabase,
+  FaBuildingColumns,
+  FaGraduationCap
 } from "react-icons/fa6";
 
 import {
@@ -18,7 +21,10 @@ import {
   SiBootstrap,
   SiReact,
   SiNextdotjs,
-  SiTypescript, 
+  SiTypescript,
+  SiFirebase,
+  SiSupabase,
+  SiSqlite,
 } from "react-icons/si";
 
 import { FaCloud } from "react-icons/fa6";
@@ -31,15 +37,32 @@ type Tech = {
   icon: React.ReactNode;
 };
 
+type TechGroup = {
+  label: string;
+  tech: Tech[];
+};
+
 export interface Project {
   logo?: string;
   title: string;
   github_link?: string;
   demo_link?: string;
   description: string;
-  tech: Tech[];
+  tech?: Tech[];
+  techGroups?: TechGroup[];
   status: string;
   security: string;
+}
+
+function TechChip({ tech }: { tech: Tech }) {
+  return (
+    <span
+      className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#CBD5E0] bg-[#FFFFFF] text-[12px] text-slate-300 dark:border-[#267799] dark:bg-[#162024]"
+    >
+      <span className="text-[#6B8BA4] dark:text-sky-400">{tech.icon}</span>
+      <p className="text-[#374151] dark:text-slate-100">{tech.name}</p>
+    </span>
+  );
 }
 
 function ProjectCard({ project }: { project: Project }) {
@@ -69,17 +92,28 @@ function ProjectCard({ project }: { project: Project }) {
 
         <h2 className="text-xl font-semibold text-[#1A2233] dark:text-slate-100">{project.title}</h2>
 
-        <div className="flex flex-wrap gap-2">
-          {project.tech.map((tech) => (
-            <span
-              key={tech.name}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#CBD5E0] bg-[#FFFFFF] text-[12px] text-slate-300 dark:border-[#267799] dark:bg-[#162024]"
-            >
-              <span className="text-[#6B8BA4] dark:text-sky-400">{tech.icon}</span>
-              <p className="text-[#374151] dark:text-slate-100">{tech.name}</p>
-            </span>
-          ))}
-        </div>
+        {project.techGroups ? (
+          <div className="flex flex-col gap-3">
+            {project.techGroups.map((group) => (
+              <div key={group.label} className="flex flex-col gap-2">
+                <span className="text-sm font-semibold text-[#1A2233] dark:text-slate-100">
+                  {group.label}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {group.tech.map((tech) => (
+                    <TechChip key={tech.name} tech={tech} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            {project.tech?.map((tech) => (
+              <TechChip key={tech.name} tech={tech} />
+            ))}
+          </div>
+        )}
 
         <p className="mt-2 text-[#1A2233] dark:text-slate-100">{project.description}</p>
 
@@ -132,13 +166,29 @@ export default function Projects() {
       logo: "/dropai-fundo_azul-v.png",
       title: "dropaí - Surf Contest Management",
       github_link: "https://github.com/dropaiorg",
-      tech: [
-        { name: "Django", icon: <SiDjango /> },
-        { name: "Python", icon: <SiPython /> },
-        { name: "JavaScript", icon: <SiJavascript /> },
-        { name: "Tailwind", icon: <SiTailwindcss /> },
-        { name: "HTML", icon: <SiHtml5 /> },
-        { name: "PostgreSQL", icon: <SiPostgresql /> }
+      techGroups: [
+        {
+          label: "Portfólio →",
+          tech: [
+            { name: "React", icon: <SiReact /> },
+            { name: "Next.js", icon: <SiNextdotjs /> },
+            { name: "Firebase", icon: <SiFirebase /> },
+            { name: "Supabase", icon: <SiSupabase /> },
+          ],
+        },
+        {
+          label: "App →",
+          tech: [
+            { name: "Django", icon: <SiDjango /> },
+            { name: "Python", icon: <SiPython /> },
+            { name: "JavaScript", icon: <SiJavascript /> },
+            { name: "Tailwind", icon: <SiTailwindcss /> },
+            { name: "HTML", icon: <SiHtml5 /> },
+            { name: "PostgreSQL", icon: <SiPostgresql /> },
+            { name: "Firebase", icon: <SiFirebase /> },
+            { name: "Supabase", icon: <SiSupabase /> },
+          ],
+        },
       ],
       description: "I am developing, together with a team, a surf championship management platform to support surf associations in organizing their competitions. It includes modeling of complex rules such as heat structures and brackets, rankings, scoring, and athlete progression. The goal is to optimize processes that are still manual through a practical and centralized solution with structured competition rules. As this is a confidential project, source code is not avaliable, you can see the organization at GitHub",
       status: "in-progress",
@@ -154,6 +204,10 @@ export default function Projects() {
         { name: "Bootstrap", icon: <SiBootstrap /> },
         { name: "HTML", icon: <SiHtml5 /> },
         { name: "PostgreSQL", icon: <SiPostgresql /> },
+        { name: "SQLite", icon: <SiSqlite /> },
+        { name: "Banco de Dados Vetorial", icon: <FaDatabase /> },
+        { name: "CNPq", icon: <FaBuildingColumns /> },
+        { name: "Lattes", icon: <FaGraduationCap /> },
       ],
       description: "A project I started during my first internship that was later selected by Petrobras to evolve into a real-world application. It enables semantic search over a database with 8.9M+ Brazilian researchers, matching them by academic and professional background using embeddings for information retrieval (Semantic Search). The first version is complete, and I'm now redesigning it to be more scalable and maintainable with improved data and search pipelines. Planned as an open-source project;",
       status: "in-progress",
