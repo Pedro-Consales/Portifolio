@@ -108,7 +108,9 @@ function WordmarkKey({
   );
 }
 
-export default function PCMKeycapLogo() {
+type PCMKeycapLogoProps = Omit<WordmarkKeyProps, "dark">;
+
+export default function PCMKeycapLogo(props: PCMKeycapLogoProps) {
   const dark = useDarkMode();
-  return <WordmarkKey dark={dark} />;
+  return <WordmarkKey dark={dark} {...props} />;
 }

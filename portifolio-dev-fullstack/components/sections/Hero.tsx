@@ -18,9 +18,9 @@ export default function Hero() {
   const tint_theme = !mounted || resolvedTheme === "dark" ? "#2a6984" : "#c2c0c0";
 
   return (
-    <section id="hero" className="w-full min-h-[100dvh] overflow-hidden">
+    <section id="hero" className="w-full min-h-[calc(100dvh-3.5rem)] sm:min-h-[calc(100dvh-4rem)] overflow-hidden">
 
-      <div className="relative h-[100dvh] w-full">
+      <div className="relative h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] w-full">
         <FaultyTerminal
           className="flex items-center justify-center h-full w-full"
           style={{ width: "100%", height: "100%" }}

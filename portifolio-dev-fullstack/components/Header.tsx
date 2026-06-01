@@ -67,24 +67,24 @@ export default function Header({
   return (
     <header
       className={[
-        "fixed top-0 left-0 right-0 z-50 w-full", // CHANGED: barra cheia, fixada no topo (não flutua)
-        "border-b border-black/10 bg-white/70 text-black backdrop-blur-md", // CHANGED: fundo um pouco mais transparente + blur
-        "dark:border-white/10 dark:bg-black/60 dark:text-white",
+        "sticky top-0 z-50 w-full", // CHANGED: ocupa o próprio espaço — conteúdo começa abaixo, não passa por baixo
+        "border-b border-black/10 bg-white text-black shadow-sm", // CHANGED: fundo opaco
+        "dark:border-white/10 dark:bg-[#0a0a0a] dark:text-white",
       ].join(" ")}
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-[64px] sm:h-[84px] w-full max-w-[1280px] items-center justify-between px-4 sm:px-8"
+        className="mx-auto flex h-14 sm:h-16 w-full max-w-[1200px] items-center justify-between px-4 sm:px-6" // CHANGED: mais compacto
       >
         <button
           aria-label={brand}
           onClick={() => scrollToSection("hero")}
           className="flex items-center bg-transparent border-0 p-0 cursor-pointer"
         >
-          <PCMKeycapLogo />
+          <PCMKeycapLogo width={84} height={32} fontPx={19} dx={3} dy={4} bw={2} r={9} />
         </button>
 
-        <div className="hidden md:flex items-center gap-3 lg:gap-4"> {/* CHANGED: hide nav keycaps on small screens */}
+        <div className="hidden md:flex items-center gap-1.5 lg:gap-2"> {/* CHANGED: hide nav keycaps on small screens */}
           {links.map((l) => (
             <NavKeycap
               key={l.href}
@@ -92,6 +92,13 @@ export default function Header({
               locked={l.sectionId === locked}
               present={!isLocking && l.sectionId !== locked && l.sectionId === activeSection}
               onClick={() => handleNavClick(l.sectionId)}
+              h={34}
+              padX={12}
+              dx={3}
+              dy={4}
+              bw={2}
+              r={10}
+              fontPx={14}
             />
           ))}
         </div>
@@ -104,7 +111,7 @@ export default function Header({
             target="_blank"
             rel="noreferrer"
             className={[
-              "inline-flex items-center rounded-full px-4 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-semibold transition", // CHANGED: responsive sizing
+              "inline-flex items-center rounded-full px-3.5 sm:px-4 py-1.5 text-sm font-semibold transition", // CHANGED: mais compacto
               "bg-[#7EC2D6] text-white hover:bg-[#6db6cc] shadow-sm",
               "dark:bg-[#267799] dark:hover:bg-[#1f6683]",
               "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#7EC2D6] dark:focus-visible:ring-[#267799] focus-visible:ring-offset-transparent",
