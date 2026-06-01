@@ -3,6 +3,7 @@
 import Link from "next/link";
 import ThemeToggle from "./theme-provider/ThemeToogle";
 import { useActiveSection, scrollToSection } from "@/hooks/useActiveSection";
+import PCMKeycapLogo from "./PCMKeycapLogo";
 
 type HeaderLink = {
   label: string;
@@ -37,9 +38,13 @@ export default function Header({
           "dark:border-white/10 dark:bg-white/5 dark:text-white dark:shadow-[0_18px_60px_rgba(0,0,0,0.35)] dark:ring-white/10",
         ].join(" ")}
       >
-        <Link href="/" aria-label={brand} className="flex items-center gap-3 font-semibold tracking-tight">
-          PCM
-        </Link>
+        <button
+          aria-label={brand}
+          onClick={() => scrollToSection("hero")}
+          className="flex items-center bg-transparent border-0 p-0 cursor-pointer"
+        >
+          <PCMKeycapLogo />
+        </button>
 
         <div className="hidden md:flex items-center gap-8"> {/* CHANGED: hide nav links on small screens */}
           {links.map((l) => {
