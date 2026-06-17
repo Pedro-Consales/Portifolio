@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./theme-provider/ThemeToogle";
 import { useActiveSection, scrollToSection } from "@/hooks/useActiveSection";
 import PCMKeycapLogo from "./PCMKeycapLogo";
 import NavKeycap from "./NavKeycap";
+import ResumeWithLang from "./ResumeWithLang";
 
 type HeaderLink = {
   label: string;
@@ -106,19 +106,7 @@ export default function Header({
         <div className="flex flex-row justify-center items-center gap-2 sm:gap-3"> {/* CHANGED: fix typo + responsive gap */}
           <ThemeToggle />
 
-          <Link
-            href="/_Brasil Curriclo Vittae - Pedro Consales_2026.1.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className={[
-              "inline-flex items-center rounded-full px-3.5 sm:px-4 py-1.5 text-sm font-semibold transition", // CHANGED: mais compacto
-              "bg-[#7EC2D6] text-white hover:bg-[#6db6cc] shadow-sm",
-              "dark:bg-[#267799] dark:hover:bg-[#1f6683]",
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#7EC2D6] dark:focus-visible:ring-[#267799] focus-visible:ring-offset-transparent",
-            ].join(" ")}
-          >
-            Resume
-          </Link>
+          <ResumeWithLang />
         </div>
       </nav>
     </header>
