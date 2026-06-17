@@ -1,0 +1,11 @@
+{
+  "name": "portifolio-root",
+  "private": true,
+  "scripts": {
+    "dev":   "npm run dev   --prefix portifolio-dev-fullstack",
+    "build": "npm run build --prefix portifolio-dev-fullstack",
+    "start": "npm run start --prefix portifolio-dev-fullstack",
+    "lint":  "npm run lint  --prefix portifolio-dev-fullstack",
+    "install:app": "npm install --prefix portifolio-dev-fullstack"
+  }
+}
