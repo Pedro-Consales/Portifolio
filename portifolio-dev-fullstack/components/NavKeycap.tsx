@@ -96,8 +96,7 @@ export default function NavKeycap({
           border: `${bw}px solid ${ink}`,
           borderRadius: r,
           transform: `translate(${dx}px, ${dy}px)`,
-          backgroundColor: paper,
-          backgroundImage: `repeating-linear-gradient(45deg, ${ink} 0, ${ink} 1.4px, transparent 1.4px, transparent 6px)`,
+          backgroundColor: ink,
         }}
       />
       {/* face */}

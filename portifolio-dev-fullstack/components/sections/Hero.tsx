@@ -109,7 +109,7 @@ export default function Hero() {
         </div>
 
         {/* gradiente — agora DENTRO do div com h-[100dvh] para alinhar corretamente no iOS */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-white dark:h-40 dark:to-black" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-0 dark:h-40 dark:bg-gradient-to-b dark:from-transparent dark:to-black" />
 
       </div>
 
