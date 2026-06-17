@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Figtree, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 // import { ThemeProvider } from "@/components/theme-provider/ThemeProvider"
 import { ThemeProvider } from "next-themes";
 import { Analytics } from '@vercel/analytics/next';
@@ -50,6 +51,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           {children}
+          <Footer />
         </ThemeProvider>
         <Analytics />
       </body>
