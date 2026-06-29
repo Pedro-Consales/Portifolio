@@ -3,9 +3,60 @@
 
 import { useEffect, useState } from "react";
 
+// Eased programmatic scroll (replaces the browser's native "smooth", which uses
+// a fixed, robotic-feeling curve). Uses requestAnimationFrame + easeInOutCubic,
+// offsets for the sticky header, and bails out the moment the user grabs the
+// scroll themselves — so it feels fluid instead of step-by-step.
+let scrollRaf: number | null = null;
+
 export function scrollToSection(id: string) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); // CHANGED: ensure consistent alignment at top
+  if (!el) return;
+
+  const html = document.documentElement;
+  const header = document.querySelector("header");
+  const offset = header ? header.getBoundingClientRect().height : 0;
+
+  const startY = window.scrollY;
+  const targetY = Math.max(0, el.getBoundingClientRect().top + startY - offset);
+  const dist = targetY - startY;
+  if (Math.abs(dist) < 2) return;
+
+  if (scrollRaf !== null) cancelAnimationFrame(scrollRaf);
+
+  // Distance-scaled duration (clamped) so short and long jumps both feel right.
+  const duration = Math.min(1100, Math.max(500, Math.abs(dist) * 0.45));
+  const easeInOutCubic = (t: number) =>
+    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  // Override the CSS scroll-behavior:smooth so our easing fully owns the motion
+  // (otherwise each frame's scrollTo would get re-smoothed and fight us).
+  const prevBehavior = html.style.scrollBehavior;
+  html.style.scrollBehavior = "auto";
+
+  let startTime: number | null = null;
+  let cancelled = false;
+  const cancel = () => { cancelled = true; };
+  const passive = { passive: true } as const;
+  window.addEventListener("wheel", cancel, passive);
+  window.addEventListener("touchstart", cancel, passive);
+
+  const cleanup = () => {
+    html.style.scrollBehavior = prevBehavior;
+    window.removeEventListener("wheel", cancel);
+    window.removeEventListener("touchstart", cancel);
+    scrollRaf = null;
+  };
+
+  const step = (now: number) => {
+    if (cancelled) return cleanup();
+    if (startTime === null) startTime = now;
+    const p = Math.min(1, (now - startTime) / duration);
+    window.scrollTo(0, startY + dist * easeInOutCubic(p));
+    if (p < 1) scrollRaf = requestAnimationFrame(step);
+    else cleanup();
+  };
+  scrollRaf = requestAnimationFrame(step);
 }
 
 export function useActiveSection(sectionIds: string[]) {

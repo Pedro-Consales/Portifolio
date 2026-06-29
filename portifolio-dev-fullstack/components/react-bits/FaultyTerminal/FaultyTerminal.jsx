@@ -306,9 +306,19 @@ export default function FaultyTerminal({
 
     const mesh = new Mesh(gl, { geometry, program });
 
+    // Track the size we last pushed to the renderer so the per-frame guard in
+    // `update` can detect when the container changed and we drifted.
+    let lastW = 0;
+    let lastH = 0;
+
     function resize() {
       if (!ctn || !renderer) return;
-      renderer.setSize(ctn.offsetWidth, ctn.offsetHeight);
+      const w = ctn.offsetWidth;
+      const h = ctn.offsetHeight;
+      if (w === 0 || h === 0) return;
+      lastW = w;
+      lastH = h;
+      renderer.setSize(w, h);
       program.uniforms.iResolution.value = new Color(
         gl.canvas.width,
         gl.canvas.height,
@@ -322,6 +332,14 @@ export default function FaultyTerminal({
 
     const update = t => {
       rafRef.current = requestAnimationFrame(update);
+
+      // Per-frame size guard: the ResizeObserver can miss late layout settling
+      // (e.g. `100dvh` resolving or a classic scrollbar appearing after mount),
+      // which left a stale, too-short canvas → an unpainted band at the bottom
+      // until the next reflow. Re-syncing here self-heals it in one frame.
+      if (ctn && (ctn.offsetWidth !== lastW || ctn.offsetHeight !== lastH)) {
+        resize();
+      }
 
       if (pageLoadAnimation && loadAnimationStartRef.current === 0) {
         loadAnimationStartRef.current = t;
