@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { motion } from "framer-motion";
 import ThemeToggle from "./theme-provider/ThemeToogle";
+import { subscribeIntro, getIntroSnapshot, getIntroServerSnapshot } from "./intro/introStore";
 import { useActiveSection, scrollToSection } from "@/hooks/useActiveSection";
 import PCMKeycapLogo from "./PCMKeycapLogo";
 import NavKeycap from "./NavKeycap";
@@ -64,8 +66,23 @@ export default function Header({
     if (lockTimer.current) clearTimeout(lockTimer.current);
   }, []);
 
+  // Drop-in animation coordinated with the intro splash via introStore.
+  // "playing" → header tucked up (hidden behind the cover); anything else
+  // (pending / revealed / skipped) → header visible. So a returning visitor or
+  // a reduced-motion user just sees a static header; during the intro it tucks
+  // up while covered, then drops down when the Hero is revealed.
+  const introState = useSyncExternalStore(
+    subscribeIntro,
+    getIntroSnapshot,
+    getIntroServerSnapshot
+  );
+  const dropped = introState !== "playing";
+
   return (
-    <header
+    <motion.header
+      initial={false}
+      animate={{ y: dropped ? 0 : "-110%" }}
+      transition={{ type: "spring", stiffness: 480, damping: 34, mass: 0.9 }}
       className={[
         "sticky top-0 z-50 w-full", // CHANGED: ocupa o próprio espaço — conteúdo começa abaixo, não passa por baixo
         "border-b border-black/10 bg-white text-black shadow-sm", // CHANGED: fundo opaco
@@ -109,6 +126,6 @@ export default function Header({
           <ResumeWithLang />
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 }

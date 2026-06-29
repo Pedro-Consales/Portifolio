@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 // import { ThemeProvider } from "@/components/theme-provider/ThemeProvider"
 import { ThemeProvider } from "next-themes";
 import { Analytics } from '@vercel/analytics/next';
+import IntroOverlay from "../components/intro/IntroOverlay";
 
 
 const geistSans = Geist({
@@ -44,14 +45,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth " suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth bg-white dark:bg-black" suppressHydrationWarning>
       <body
         className={`${figtree.variable} ${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} font-sans antialiased bg-white dark:bg-black text-black dark:text-white`}
       >
+        {/* JS off → never let the intro cover block the page */}
+        <noscript>
+          <style>{`#pcm-intro-cover{display:none!important}`}</style>
+        </noscript>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           {children}
           <Footer />
+          <IntroOverlay />
         </ThemeProvider>
         <Analytics />
       </body>
