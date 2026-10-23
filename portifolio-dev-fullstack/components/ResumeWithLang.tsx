@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage, type Lang } from "./i18n/LanguageProvider";
 
 function useDarkMode() {
   const [dark, setDark] = useState(false);
@@ -19,11 +20,14 @@ const BLUE_LINE = "#2c6c87";
 const BLUE_DEEP = "#24576e";
 
 const RESUME_URLS = {
-  en: "/CV_Pedro_Consales_EN-US(Jun2026).pdf",
-  pt: "/CV_Pedro_Consales_PT-BR(Jun2026).pdf",
-} as const;
+  en: "/CV_Pedro_Consales_EN_Out2026.pdf",
+  pt: "/CV_Pedro_Consales_PT-BR_Out2026.pdf",
+} as const satisfies Record<Lang, string>;
 
-type Lang = keyof typeof RESUME_URLS;
+const RESUME_LABEL: Record<Lang, string> = {
+  en: "Resume",
+  pt: "Currículo",
+};
 
 function LangKey({
   label,
@@ -135,7 +139,7 @@ function LangKey({
   );
 }
 
-function ResumeKeycap({ href, dark }: { href: string; dark: boolean }) {
+function ResumeKeycap({ href, label, dark }: { href: string; label: string; dark: boolean }) {
   const [hovered, setHovered] = useState(false);
   const [down, setDown] = useState(false);
 
@@ -207,7 +211,7 @@ function ResumeKeycap({ href, dark }: { href: string; dark: boolean }) {
             userSelect: "none",
           }}
         >
-          Resume
+          {label}
         </span>
       </span>
     </a>
@@ -216,18 +220,18 @@ function ResumeKeycap({ href, dark }: { href: string; dark: boolean }) {
 
 export default function ResumeWithLang() {
   const dark = useDarkMode();
-  const [lang, setLang] = useState<Lang>("en");
+  const { lang, setLang } = useLanguage();
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-      {/* language toggle — EN | PT */}
+      {/* language toggle — EN | PT (switches the whole site and the resume) */}
       <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
         <LangKey label="EN" active={lang === "en"} dark={dark} onClick={() => setLang("en")} />
         <LangKey label="PT" active={lang === "pt"} dark={dark} onClick={() => setLang("pt")} />
       </div>
 
       {/* Resume keycap */}
-      <ResumeKeycap href={RESUME_URLS[lang]} dark={dark} />
+      <ResumeKeycap href={RESUME_URLS[lang]} label={RESUME_LABEL[lang]} dark={dark} />
     </div>
   );
 }

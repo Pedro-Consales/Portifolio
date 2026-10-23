@@ -5,12 +5,49 @@ import { useTheme } from "next-themes";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import FaultyTerminal from "../react-bits/FaultyTerminal/FaultyTerminal";
 import DecryptedText from "../react-bits/DecryptedText/DecryptedText";
+import { useLanguage, type Lang } from "../i18n/LanguageProvider";
+
+const COPY: Record<Lang, {
+  greeting: string;
+  iam: string;
+  role: string;
+  afterRole: string;
+  lines: string[];
+  location: string;
+}> = {
+  en: {
+    greeting: "Hello! My name is",
+    iam: "I'm a",
+    role: "Full Stack Software Engineer",
+    afterRole: " enthusiast,",
+    lines: [
+      "CEO, Startup Founder, and a Computer Science student at PUC-Rio.",
+      "I build web projects from ideation to deployment, solving real-world problems.",
+      "I primarily work with modern full stack frameworks.",
+    ],
+    location: "Based in Rio de Janeiro, Brazil 🇧🇷",
+  },
+  pt: {
+    greeting: "Olá! Meu nome é",
+    iam: "Sou um entusiasta de",
+    role: "Engenharia de Software Full Stack",
+    afterRole: ",",
+    lines: [
+      "CEO, fundador de startup e estudante de Ciência da Computação na PUC-Rio.",
+      "Construo projetos web da ideação ao deploy, resolvendo problemas reais.",
+      "Trabalho principalmente com frameworks full stack modernos.",
+    ],
+    location: "Rio de Janeiro, Brasil 🇧🇷",
+  },
+};
 
 // Stable reference — prevents WebGL context from being recreated on every Hero re-render
 const GRID_MUL: [number, number] = [2, 1];
 
 export default function Hero() {
   const { resolvedTheme } = useTheme();
+  const { lang } = useLanguage();
+  const t = COPY[lang];
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -49,15 +86,16 @@ export default function Hero() {
 
           <div className="flex flex-col gap-10">
             <div className="text-white text-center text-5xl font-bold">
-              <p>Hello! My name is</p>
+              <p>{t.greeting}</p>
               <p>Pedro Consales Margaronis</p>
             </div>
             <div className="text-white text-center font-bold">
               <p className="text-lg md:text-xl font-semibold text-white/90">
-                I&apos;m a{" "}
+                {t.iam}{" "}
                 <span className="text-[#A7EF9E] font-extrabold tracking-tight">
                   <DecryptedText
-                  text="Full Stack Software Engineer"
+                  key={lang}
+                  text={t.role}
                   speed={70}
                   maxIterations={11}
                   characters="ABCD1234!?ˆ*&!@#$%()åøπˆßµ∫√"
@@ -68,18 +106,18 @@ export default function Hero() {
                   parentClassName="all-letters"
                   encryptedClassName="encrypted"
                   />
-                </span>{" "}
-                enthusiast, 
-                <br />
-                CEO, Startup Founder, and a Computer Science student at PUC-Rio.
-                <br />
-                I build web projects from ideation to deployment, solving real-world problems.
-                <br />
-                I primarily work with modern full stack frameworks.
+                </span>
+                {t.afterRole}
+                {t.lines.map((line) => (
+                  <span key={line}>
+                    <br />
+                    {line}
+                  </span>
+                ))}
               </p>
 
               <p className="mt-3 text-base md:text-lg font-semibold text-white/80">
-                Based in Rio de Janeiro, Brazil 🇧🇷
+                {t.location}
               </p>
             </div>
           </div>

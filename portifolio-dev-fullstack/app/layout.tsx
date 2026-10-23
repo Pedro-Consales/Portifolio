@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 // import { ThemeProvider } from "@/components/theme-provider/ThemeProvider"
 import { ThemeProvider } from "next-themes";
 import { Analytics } from '@vercel/analytics/next';
-import IntroOverlay from "../components/intro/IntroOverlay";
+import { LanguageProvider } from "../components/i18n/LanguageProvider";
 
 
 const geistSans = Geist({
@@ -49,15 +49,12 @@ export default function RootLayout({
       <body
         className={`${figtree.variable} ${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} font-sans antialiased bg-white dark:bg-black text-black dark:text-white`}
       >
-        {/* JS off → never let the intro cover block the page */}
-        <noscript>
-          <style>{`#pcm-intro-cover{display:none!important}`}</style>
-        </noscript>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          {children}
-          <Footer />
-          <IntroOverlay />
+          <LanguageProvider>
+            <Header />
+            {children}
+            <Footer />
+          </LanguageProvider>
         </ThemeProvider>
         <Analytics />
       </body>

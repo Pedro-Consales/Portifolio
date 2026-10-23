@@ -4,6 +4,12 @@ import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import PCMKeycapLogo from "./PCMKeycapLogo";
 import ResumeWithLang from "./ResumeWithLang";
+import { useLanguage, type Lang } from "./i18n/LanguageProvider";
+
+const COPY: Record<Lang, { role: string; email: string }> = {
+  en: { role: "Full Stack Software Engineer", email: "Email" },
+  pt: { role: "Engenheiro de Software Full Stack", email: "E-mail" },
+};
 
 function useDarkMode() {
   const [dark, setDark] = useState(false);
@@ -98,6 +104,8 @@ function SocialKey({ href, label, icon, dark }: SocialKeyProps) {
 
 export default function Footer() {
   const dark = useDarkMode();
+  const { lang } = useLanguage();
+  const t = COPY[lang];
   const border = dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
   const muted = dark ? "rgba(244,242,236,0.45)" : "rgba(24,24,27,0.45)";
   const ink = dark ? "#f4f2ec" : "#18181b";
@@ -117,7 +125,7 @@ export default function Footer() {
     },
     {
       href: "mailto:pedromarg@outlook.com",
-      label: "Email",
+      label: t.email,
       icon: <FaEnvelope />,
       dark,
     },
@@ -169,7 +177,7 @@ export default function Footer() {
                 letterSpacing: "0.01em",
               }}
             >
-              Full Stack Software Engineer
+              {t.role}
             </p>
           </div>
         </div>

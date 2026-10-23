@@ -5,35 +5,79 @@ import "react-vertical-timeline-component/style.min.css";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Briefcase, GraduationCap } from "lucide-react";
+import { useLanguage, type Lang } from "../i18n/LanguageProvider";
 
-const experiences = [
-  {
-    type: "work",
-    date: "Feb 2026 - Present",
-    title: "Full-Stack Software Engineer",
-    subtitle: "Instituto ECOA PUC-Rio · Internship",
-    description:
-      "Delivery-phase internship program in partnership with Petrobras, turning Discovery/Ideation initiatives into production-ready corporate solutions. Leading end-to-end development—from data modeling and architectural decisions to final delivery",
+type Experience = {
+  type: "work" | "education";
+  date: string;
+  title: string;
+  subtitle: string;
+  description: string;
+};
+
+const COPY: Record<Lang, { title: string; experiences: Experience[] }> = {
+  en: {
+    title: "Experiences",
+    experiences: [
+      {
+        type: "work",
+        date: "Feb 2026 - Present",
+        title: "Full-Stack Software Engineer",
+        subtitle: "Instituto ECOA PUC-Rio · Internship",
+        description:
+          "Delivery-phase internship program in partnership with Petrobras, turning Discovery/Ideation initiatives into production-ready corporate solutions. Leading end-to-end development—from data modeling and architectural decisions to final delivery",
+      },
+      {
+        type: "work",
+        date: "Apr 2025 - Feb 2026",
+        title: "Software Developer & Researcher",
+        subtitle: "Instituto ECOA PUC-Rio · Internship",
+        description:
+          "Internship program in partnership with Petrobras (aka: Ignição - Discovery), focused on building scalable MVPs for real business challenges (4 projects delivered).",
+      },
+      {
+        type: "education",
+        date: "2024 - Present (ETC: 2027.2)",
+        title: "Computer Science",
+        subtitle: "PUC-Rio · Rio de Janeiro, Brazil",
+        description: "Strong university that gives a wide learning skills about almost every aspect in tecnology.",
+      },
+    ],
   },
-  {
-    type: "work",
-    date: "Apr 2025 - Feb 2026",
-    title: "Software Developer & Researcher",
-    subtitle: "Instituto ECOA PUC-Rio · Internship",
-    description:
-      "Internship program in partnership with Petrobras (aka: Ignição - Discovery), focused on building scalable MVPs for real business challenges (4 projects delivered).",
+  pt: {
+    title: "Experiências",
+    experiences: [
+      {
+        type: "work",
+        date: "Fev 2026 - Atual",
+        title: "Engenheiro de Software Full-Stack",
+        subtitle: "Instituto ECOA PUC-Rio · Estágio",
+        description:
+          "Programa de estágio da fase de Delivery em parceria com a Petrobras, transformando iniciativas de Discovery/Ideação em soluções corporativas prontas para produção. Lidero o desenvolvimento de ponta a ponta, da modelagem de dados e decisões de arquitetura até a entrega final.",
+      },
+      {
+        type: "work",
+        date: "Abr 2025 - Fev 2026",
+        title: "Desenvolvedor de Software & Pesquisador",
+        subtitle: "Instituto ECOA PUC-Rio · Estágio",
+        description:
+          "Programa de estágio em parceria com a Petrobras (Ignição - Discovery), focado em construir MVPs escaláveis para desafios reais de negócio (4 projetos entregues).",
+      },
+      {
+        type: "education",
+        date: "2024 - Atual (previsão: 2027.2)",
+        title: "Ciência da Computação",
+        subtitle: "PUC-Rio · Rio de Janeiro, Brasil",
+        description: "Uma universidade forte, que oferece um aprendizado amplo sobre praticamente todos os aspectos da tecnologia.",
+      },
+    ],
   },
-  {
-    type: "education",
-    date: "2024 - Present (ETC: 2027.2)",
-    title: "Computer Science",
-    subtitle: "PUC-Rio · Rio de Janeiro, Brazil",
-    description: "Strong university that gives a wide learning skills about almost every aspect in tecnology.",
-  },
-];
+};
 
 export default function Timeline() {
   const { resolvedTheme } = useTheme();
+  const { lang } = useLanguage();
+  const t = COPY[lang];
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -56,10 +100,10 @@ export default function Timeline() {
       className="bg-white dark:bg-black w-full px-6 sm:px-10 lg:px-20 py-16 sm:py-20 lg:py-24" // CHANGED: responsive padding
     >
       <div className="max-w-6xl mx-auto"> {/* CHANGED: constrain width */}
-        <h4 className="font-bold text-4xl sm:text-5xl lg:text-6xl mb-10">Experiences</h4> {/* CHANGED: responsive title + spacing */}
+        <h4 className="font-bold text-4xl sm:text-5xl lg:text-6xl mb-10">{t.title}</h4> {/* CHANGED: responsive title + spacing */}
 
         <VerticalTimeline lineColor={isDark ? "#374151" : "#e5e7eb"}>
-          {experiences.map((item, i) => {
+          {t.experiences.map((item, i) => {
             const isWork = item.type === "work";
             return (
               <VerticalTimelineElement

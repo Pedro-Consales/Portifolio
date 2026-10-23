@@ -1,13 +1,29 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./theme-provider/ThemeToogle";
-import { subscribeIntro, getIntroSnapshot, getIntroServerSnapshot } from "./intro/introStore";
 import { useActiveSection, scrollToSection } from "@/hooks/useActiveSection";
 import PCMKeycapLogo from "./PCMKeycapLogo";
 import NavKeycap from "./NavKeycap";
 import ResumeWithLang from "./ResumeWithLang";
+import { useLanguage, type Lang } from "./i18n/LanguageProvider";
+
+const NAV_LABELS: Record<Lang, Record<string, string>> = {
+  en: {
+    hero: "Hero",
+    "about-me": "About Me",
+    timeline: "Time Line",
+    "skill-overview": "Skills",
+    projects: "Projects",
+  },
+  pt: {
+    hero: "Início",
+    "about-me": "Sobre Mim",
+    timeline: "Trajetória",
+    "skill-overview": "Skills",
+    projects: "Projetos",
+  },
+};
 
 type HeaderLink = {
   label: string;
@@ -30,6 +46,7 @@ export default function Header({
     { label: "Projects", href: "/#projects", sectionId: "projects" },
   ],
 }: HeaderProps) {
+  const { lang } = useLanguage();
   const activeSection = useActiveSection(["hero", "about-me", "timeline", "skill-overview", "projects"]);
 
   // Trava por clique: a seção clicada afunda imediatamente e a tela desliza até ela.
@@ -66,23 +83,8 @@ export default function Header({
     if (lockTimer.current) clearTimeout(lockTimer.current);
   }, []);
 
-  // Drop-in animation coordinated with the intro splash via introStore.
-  // "playing" → header tucked up (hidden behind the cover); anything else
-  // (pending / revealed / skipped) → header visible. So a returning visitor or
-  // a reduced-motion user just sees a static header; during the intro it tucks
-  // up while covered, then drops down when the Hero is revealed.
-  const introState = useSyncExternalStore(
-    subscribeIntro,
-    getIntroSnapshot,
-    getIntroServerSnapshot
-  );
-  const dropped = introState !== "playing";
-
   return (
-    <motion.header
-      initial={false}
-      animate={{ y: dropped ? 0 : "-110%" }}
-      transition={{ type: "spring", stiffness: 480, damping: 34, mass: 0.9 }}
+    <header
       className={[
         "sticky top-0 z-50 w-full", // CHANGED: ocupa o próprio espaço — conteúdo começa abaixo, não passa por baixo
         "border-b border-black/10 bg-white text-black shadow-sm", // CHANGED: fundo opaco
@@ -105,7 +107,7 @@ export default function Header({
           {links.map((l) => (
             <NavKeycap
               key={l.href}
-              label={l.label}
+              label={(l.sectionId && NAV_LABELS[lang][l.sectionId]) || l.label}
               locked={l.sectionId === locked}
               present={!isLocking && l.sectionId !== locked && l.sectionId === activeSection}
               onClick={() => handleNavClick(l.sectionId)}
@@ -126,6 +128,6 @@ export default function Header({
           <ResumeWithLang />
         </div>
       </nav>
-    </motion.header>
+    </header>
   );
 }

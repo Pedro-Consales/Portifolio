@@ -23,8 +23,6 @@ type WordmarkKeyProps = {
   r?: number;
   fontPx?: number;
   dark?: boolean;
-  /** Force the pressed-down state from code (used by the intro animation). */
-  pressed?: boolean;
 };
 
 function WordmarkKey({
@@ -36,7 +34,6 @@ function WordmarkKey({
   r = 11,
   fontPx = 26,
   dark = false,
-  pressed = false,
 }: WordmarkKeyProps) {
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(false);
@@ -44,10 +41,9 @@ function WordmarkKey({
   const ink = dark ? "#f4f2ec" : "#18181b";
   const paper = dark ? "#16171b" : "#ffffff";
 
-  const down = active || pressed;
-  const pressX = down ? dx : hovered ? dx * 0.55 : 0;
-  const pressY = down ? dy : hovered ? dy * 0.55 : 0;
-  const duration = down ? "0.06s" : "0.13s";
+  const pressX = active ? dx : hovered ? dx * 0.55 : 0;
+  const pressY = active ? dy : hovered ? dy * 0.55 : 0;
+  const duration = active ? "0.05s" : "0.13s";
 
   return (
     <div
